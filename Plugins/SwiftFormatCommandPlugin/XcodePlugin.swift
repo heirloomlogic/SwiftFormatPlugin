@@ -21,7 +21,7 @@
                 "--parallel",
                 "--configuration", configPath,
                 "--recursive",
-                context.xcodeProject.directoryURL.absoluteString,
+                context.xcodeProject.directoryURL.path,
             ]
 
             try process.run()
