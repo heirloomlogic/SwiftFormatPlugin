@@ -167,7 +167,7 @@ Three things in that skeleton are worth copying deliberately: the `actions/check
 
 On Linux, run the job in the official Swift image — `runs-on: ubuntu-latest` with `container: swift:6.2` — and drop the `xcrun` prefix from the lint command. `swift-format` ships inside the toolchain, so the image needs no separate install step. Use the full image rather than a `-slim` variant, which omits the compiler. The setup script itself is portable `sh` and runs unchanged.
 
-`swift-actions/setup-swift` also works and is what this repo used until 2026-08. Its latest stable release (`v2.4.0`) still declares `using: node20`, and Node 20 reached end of life on 2026-04-30; the only newer tag is a prerelease on the same runtime. The container avoids that, pins the compiler exactly, and removes a third-party action from the job.
+`swift-actions/setup-swift` also works and is what this repo used until 2026-08. Its latest stable release (`v2.4.0`) still declares `using: node20`, and Node 20 reached end of life on 2026-04-30; the only newer tag is a prerelease on the same runtime. The container avoids that, pins the compiler exactly, and removes a third-party action from the job. It is not faster: pulling the image costs about what installing the toolchain did.
 
 **Caveats:**
 

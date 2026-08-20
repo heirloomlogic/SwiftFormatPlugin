@@ -115,11 +115,16 @@ jobs:
     # The toolchain arrives as an image rather than via swift-actions/setup-swift:
     # that action's latest stable (v2.4.0) still declares `using: node20`, which
     # reached end of life on 2026-04-30, and its only newer tag (v3.0.0-beta.1) is
-    # a prerelease on the same runtime. The image also removes this repo's last
-    # third-party action and the ~37s toolchain install that was most of this
-    # job's wall-clock. swift-format ships in the Swift Linux toolchain from 6.0
-    # onward, so it needs no separate install. Use the full image, not -slim:
-    # the slim variants omit the compiler.
+    # a prerelease on the same runtime. It also removes this repo's last
+    # third-party action and pins the compiler exactly.
+    #
+    # This is NOT a speed change: measured on run 32320949022, `Initialize
+    # containers` costs 39s against the 37s the setup-swift step used to cost,
+    # so the job stays at about 60s. Do not re-swap it chasing wall-clock.
+    #
+    # swift-format ships in the Swift Linux toolchain from 6.0 onward, so the
+    # image needs no separate install. Use the full image, not -slim: the slim
+    # variants omit the compiler.
     container: swift:6.2
     timeout-minutes: 15
     steps:
